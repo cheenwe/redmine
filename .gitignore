@@ -32,3 +32,6 @@
 
 /.bundle
 /.env
+Gemfile.lock
+/config/database.yml
+.ruby-version
