@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @my_scaffold.name %>
+</p>
+
+<p>
+  <strong>Contact:</strong>
+  <%= @my_scaffold.contact %>
+</p>
+
+<p>
+  <strong>Result:</strong>
+  <%= @my_scaffold.result %>
+</p>
+
+<%= link_to 'Edit', edit_my_scaffold_path(@my_scaffold) %> |
+<%= link_to 'Back', my_scaffolds_path %>
