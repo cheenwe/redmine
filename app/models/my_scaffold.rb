@@ -8,6 +8,29 @@ class MyScaffold < ActiveRecord::Base
 
 	# url=http://openapi.baidu.com/public/2.0/bmt/translate?client_id=FZdVhFzQaWdLWzX9En8hHckY&q=断电报警内容,明天&from=auto&to=auto
 
+
+	before_create :sys_string_name
+	def sys_string_name
+		self.result = MyScaffold.new.get_value(self.contact)
+	end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   attr_accessor :host, :client_id, :from, :to
 
 	def baidu_fanyi
@@ -59,15 +82,23 @@ class MyScaffold < ActiveRecord::Base
 	# 	# MyScaffold.new.send_data("我去,你去,你好,大家好").split(",").each do |a| puts  a.to_s.downcase.split.join("_") end
 
 	# end
-	def get_value(a,t)
-		str  = t.split(",")
+	def get_value(a)
+		# str  = t.split(",")
 		arr=[]
-		a = send_data(a).split(",").each do |b|
-			arr << b.to_s.downcase.split.join("_")
+		send_data(a).split(",").each do |b|
+			arr << b.to_s.downcase.split.join("_").to_s
 		end
-		puts arr
-		puts str
-		puts arr + str
+
+		#去除引号 , 等多余字符
+		arr = arr.to_s.delete "[" "]" '""' ","
+		#把 :_替换为 :
+		@result = arr.gsub(":_",":")
+		puts 	@result
+		# cc =c.to_s.delete "[" "]" '""' ","
+		# puts arr.to_s.gsub(":_",":")
+		# puts arr.class
+		# puts str
+		# puts arr + str
 	end
 
 	#获取翻译数据
@@ -76,15 +107,17 @@ class MyScaffold < ActiveRecord::Base
    	# downcase​.split.join("_")
    query = 	CGI.escape(query)
    @url = "#{baidu_fanyi["host"]}client_id=#{baidu_fanyi["client_id"]}&from=#{baidu_fanyi["from"]}&to=#{baidu_fanyi["to"]}&q=#{query}"
+   puts "#{@url}>>>>>>>>>>>>.1>>>>>>>>>."
+	uri = URI.parse @url
 
-     uri = URI.parse @url
-     http = Net::HTTP.new(uri.host, uri.port)
-     request = Net::HTTP::Get.new(uri)
+   puts "#{url}>>>>>>>>>>>>>>>>>2>>>>>>>>>>>......"
+	http = Net::HTTP.new(uri.host, uri.port)
+	request = Net::HTTP::Get.new(uri)
 
-     data = http.request(request).body
+	data = http.request(request).body
 
-		results = JSON.parse(data)
-		results["trans_result"][0]["dst"]
+	results = JSON.parse(data)
+	results["trans_result"][0]["dst"]
    rescue SocketError
 	  puts "网络错误!"
    end
