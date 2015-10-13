@@ -215,6 +215,3 @@ DEPENDENCIES
   simplecov (~> 0.9.1)
   tzinfo-data
   yard
-
-BUNDLED WITH
-   1.10.6

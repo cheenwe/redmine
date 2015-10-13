@@ -1,4 +1,11 @@
 <div id="wiki-content-display">
-  <%= textilizable content, :text, :attachments => content.page.attachments,
-        :edit_section_links => (@sections_editable && {:controller => 'wiki', :action => 'edit', :project_id => @page.project, :id => @page.title}) %>
+	<textarea id="append-test" style="display:none;">
+  <%= @content.text%>
+</textarea>
 </div>
+<%= @content.text %>
+
+<script type="text/javascript">
+
+
+</script>

@@ -645,6 +645,23 @@ function toggleDisabledOnChange() {
 function toggleDisabledInit() {
   $('input[data-disables], input[data-enables]').each(toggleDisabledOnChange);
 }
+
+$(function() {
+
+              var testEditor = editormd.markdownToHTML("wiki-content-display", {
+
+                  emoji           : true,
+                  taskList        : true,
+                  tex             : true,  // 默认不解析
+                  flowChart       : true,  // 默认不解析
+                  sequenceDiagram : true,  // 默认不解析
+                  tocm            : true,
+                  path : '.javascript/editormd/lib/',
+                  codeFold : true
+
+              });
+
+});
 $(document).ready(function(){
   $('#content').on('change', 'input[data-disables], input[data-enables]', toggleDisabledOnChange);
   toggleDisabledInit();
