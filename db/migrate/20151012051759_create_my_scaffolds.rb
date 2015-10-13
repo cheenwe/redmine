@@ -6,6 +6,6 @@ class CreateMyScaffolds < ActiveRecord::Migration
       t.text :result
 
       t.timestamps null: false
-    end
+    end unless table_exists? :my_scaffolds
   end
 end

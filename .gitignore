@@ -35,4 +35,5 @@
 Gemfile.lock
 /config/database.yml
 .ruby-version
-plugins/
+plugins/redmine_backlogs
+plugins/redmine_graphs
