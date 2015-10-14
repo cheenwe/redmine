@@ -40,8 +40,6 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    acts-as-taggable-on (2.4.1)
-      rails (>= 3, < 5)
     addressable (2.3.8)
     airbrake (4.3.1)
       builder
@@ -147,8 +145,6 @@ GEM
     rbpdf (1.18.6)
     rdoc (4.2.0)
     redcarpet (3.3.3)
-    redmine_acts_as_taggable_on (1.0.0)
-      acts-as-taggable-on (>= 2.3, < 2.5)
     request_store (1.0.5)
     rhebok (0.8.6)
       prefork_engine (>= 0.0.4)
@@ -186,7 +182,6 @@ GEM
     websocket (1.2.2)
     xpath (0.1.4)
       nokogiri (~> 1.3)
-    ya2yaml (0.31)
     yard (0.8.7.6)
     zip-zip (0.3)
       rubyzip (>= 1.0.0)
@@ -227,7 +222,6 @@ DEPENDENCIES
   rbpdf (~> 1.18.6)
   rdoc (>= 2.4.2)
   redcarpet (~> 3.3.2)
-  redmine_acts_as_taggable_on (~> 1.0)
   request_store (= 1.0.5)
   rhebok
   rmagick (>= 2.14.0)
@@ -238,7 +232,6 @@ DEPENDENCIES
   spreadsheet
   tzinfo-data
   uglifier
-  ya2yaml
   yard
   zip-zip
 
