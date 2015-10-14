@@ -16,7 +16,6 @@
 /log/mongrel_debug
 !/plugins/README
 /public/dispatch.*
-/public/plugin_assets/*
 !/public/themes/alternate
 !/public/themes/classic
 !/public/themes/README
@@ -35,5 +34,3 @@
 Gemfile.lock
 /config/database.yml
 .ruby-version
-plugins/redmine_backlogs
-plugins/redmine_graphs
