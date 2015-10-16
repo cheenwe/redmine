@@ -13,8 +13,11 @@ rake redmine:plugins:migrate RAILS_ENV=production
 
 图片粘贴：　git clone https://github.com/peclik/clipboard_image_paste.git 
 
-工时管理软件:　git clone https://github.com/maxrossello/redmine_app__space.git plugins/redmine_app__space
-                        git clone https://github.com/maxrossello/redmine_app_timesheets.git plugins/redmine_app_timesheets
+导出excel:　git clone https://github.com/two-pack/redmine_xls_export.git
+
+
+工时管理软件:　git clone https://github.com/maxrossello/redmine_app__space.git redmine_app__space
+                        git clone https://github.com/maxrossello/redmine_app_timesheets.git redmine_app_timesheets
                         RAILS_ENV=production rake redmine:plugins:migrate
 
 
