@@ -1,38 +1,26 @@
-/*
- * Editor.md
- *
- * @file        editormd.js
- * @version     v1.5.0
- * @description Open source online markdown editor.
- * @license     MIT License
- * @author      Pandao
- * {@link       https://github.com/pandao/editor.md}
- * @updateTime  2015-06-09
- */
-
 ;(function(factory) {
     "use strict";
 
-	// CommonJS/Node.js
-	if (typeof require === "function" && typeof exports === "object" && typeof module === "object")
+    // CommonJS/Node.js
+    if (typeof require === "function" && typeof exports === "object" && typeof module === "object")
     {
         module.exports = factory;
     }
-	else if (typeof define === "function")  // AMD/CMD/Sea.js
-	{
+    else if (typeof define === "function")  // AMD/CMD/Sea.js
+    {
         if (define.amd) // for Require.js
         {
             /* Require.js define replace */
         }
         else
         {
-		    define(["jquery"], factory);  // for Sea.js
+            define(["jquery"], factory);  // for Sea.js
         }
-	}
-	else
-	{
+    }
+    else
+    {
         window.editormd = factory();
-	}
+    }
 
 }(function() {
 
@@ -42,9 +30,9 @@
 
     var $ = (typeof (jQuery) !== "undefined") ? jQuery : Zepto;
 
-	if (typeof ($) === "undefined") {
-		return ;
-	}
+    if (typeof ($) === "undefined") {
+        return ;
+    }
 
     /**
      * editormd
@@ -108,20 +96,20 @@
         gotoLine             : true,
         codeFold             : false,
         autoHeight           : false,
-		autoFocus            : true,
+        autoFocus            : true,
         autoCloseTags        : true,
         searchReplace        : true,
         syncScrolling        : true,           // true | false | "single", default true
         readOnly             : false,
         tabSize              : 4,
-		indentUnit           : 4,
+        indentUnit           : 4,
         lineNumbers          : true,
-		lineWrapping         : true,
-		autoCloseBrackets    : true,
-		showTrailingSpace    : true,
-		matchBrackets        : true,
-		indentWithTabs       : true,
-		styleSelectedText    : true,
+        lineWrapping         : true,
+        autoCloseBrackets    : true,
+        showTrailingSpace    : true,
+        matchBrackets        : true,
+        indentWithTabs       : true,
+        styleSelectedText    : true,
         matchWordHighlight   : true,           // options: true, false, "onselected"
         styleActiveLine      : true,           // Highlight the current line
         dialogLockScreen     : true,
@@ -1306,7 +1294,7 @@
 
         createInfoDialog : function() {
             var _this        = this;
-			var editor       = this.editor;
+            var editor       = this.editor;
             var classPrefix  = this.classPrefix;
 
             var infoDialogHTML = [
@@ -1346,16 +1334,16 @@
         infoDialogPosition : function() {
             var infoDialog = this.infoDialog;
 
-			var _infoDialogPosition = function() {
-				infoDialog.css({
-					top  : ($(window).height() - infoDialog.height()) / 2 + "px",
-					left : ($(window).width()  - infoDialog.width()) / 2  + "px"
-				});
-			};
+            var _infoDialogPosition = function() {
+                infoDialog.css({
+                    top  : ($(window).height() - infoDialog.height()) / 2 + "px",
+                    left : ($(window).width()  - infoDialog.width()) / 2  + "px"
+                });
+            };
 
-			_infoDialogPosition();
+            _infoDialogPosition();
 
-			$(window).resize(_infoDialogPosition);
+            $(window).resize(_infoDialogPosition);
 
             return this;
         },
@@ -1372,9 +1360,9 @@
             $("html,body").css("overflow-x", "hidden");
 
             var _this       = this;
-			var editor      = this.editor;
+            var editor      = this.editor;
             var settings    = this.settings;
-			var infoDialog  = this.infoDialog = editor.children("." + this.classPrefix + "dialog-info");
+            var infoDialog  = this.infoDialog = editor.children("." + this.classPrefix + "dialog-info");
 
             if (infoDialog.length < 1)
             {
@@ -1384,13 +1372,13 @@
             this.lockScreen(true);
 
             this.mask.css({
-						opacity         : settings.dialogMaskOpacity,
-						backgroundColor : settings.dialogMaskBgColor
-					}).show();
+                        opacity         : settings.dialogMaskOpacity,
+                        backgroundColor : settings.dialogMaskBgColor
+                    }).show();
 
-			infoDialog.css("z-index", editormd.dialogZindex).show();
+            infoDialog.css("z-index", editormd.dialogZindex).show();
 
-			this.infoDialogPosition();
+            this.infoDialogPosition();
 
             return this;
         },
@@ -1736,23 +1724,23 @@
                 preview.unbind(mouseOrTouch("scroll", "touchmove"));
             };
 
-			codeMirror.bind({
-				mouseover  : cmBindScroll,
-				mouseout   : cmUnbindScroll,
-				touchstart : cmBindScroll,
-				touchend   : cmUnbindScroll
-			});
+            codeMirror.bind({
+                mouseover  : cmBindScroll,
+                mouseout   : cmUnbindScroll,
+                touchstart : cmBindScroll,
+                touchend   : cmUnbindScroll
+            });
 
             if (settings.syncScrolling === "single") {
                 return this;
             }
 
-			preview.bind({
-				mouseover  : previewBindScroll,
-				mouseout   : previewUnbindScroll,
-				touchstart : previewBindScroll,
-				touchend   : previewUnbindScroll
-			});
+            preview.bind({
+                mouseover  : previewBindScroll,
+                mouseout   : previewUnbindScroll,
+                touchstart : previewBindScroll,
+                touchend   : previewUnbindScroll
+            });
 
             return this;
         },
@@ -3182,17 +3170,20 @@
         }
     };
 
-    editormd.keyMaps = {
-        "Ctrl-1"       : "h1",
-        "Ctrl-2"       : "h2",
-        "Ctrl-3"       : "h3",
-        "Ctrl-4"       : "h4",
-        "Ctrl-5"       : "h5",
-        "Ctrl-6"       : "h6",
-        "Ctrl-B"       : "bold",  // if this is string ==  editormd.toolbarHandlers.xxxx
-        "Ctrl-D"       : "datetime",
+    var isMac = navigator.platform.toUpperCase().indexOf('MAC')>=0;
+    var key = isMac ? "Cmd" : "Ctrl";
 
-        "Ctrl-E"       : function() { // emoji
+    editormd.keyMaps = {
+        [key + "-1"]       : "h1",
+        [key + "-2"]       : "h2",
+        [key + "-3"]       : "h3",
+        [key + "-4"]       : "h4",
+        [key + "-5"]       : "h5",
+        [key + "-6"]       : "h6",
+        [key + "-B"]       : "bold",  // if this is string ==  editormd.toolbarHandlers.xxxx
+        [key + "-D"]       : "datetime",
+
+        [key + "Ctrl-E"]       : function() { // emoji
             var cm        = this.cm;
             var cursor    = cm.getCursor();
             var selection = cm.getSelection();
@@ -3209,10 +3200,10 @@
                 cm.setCursor(cursor.line, cursor.ch + 1);
             }
         },
-        "Ctrl-Alt-G"   : "goto-line",
-        "Ctrl-H"       : "hr",
-        "Ctrl-I"       : "italic",
-        "Ctrl-K"       : "code",
+        [key + "-Alt-G"]   : "goto-line",
+        [key + "-H"]       : "hr",
+        [key + "-I"]       : "italic",
+        [key + "-K"]       : "code",
 
         "Ctrl-L"        : function() {
             var cm        = this.cm;
@@ -3227,7 +3218,7 @@
                 cm.setCursor(cursor.line, cursor.ch + 1);
             }
         },
-        "Ctrl-U"         : "list-ul",
+        [key + "-U"]         : "list-ul",
 
         "Shift-Ctrl-A"   : function() {
             var cm        = this.cm;
@@ -3247,10 +3238,10 @@
             }
         },
 
-        "Shift-Ctrl-C"     : "code",
-        "Shift-Ctrl-Q"     : "quote",
-        "Shift-Ctrl-S"     : "del",
-        "Shift-Ctrl-K"     : "tex",  // KaTeX
+        ["Shift" + key + "-C"]     : "code",
+        ["Shift" + key + "Q"]     : "quote",
+        ["Shift" + key + "S"]     : "del",
+        ["Shift" + key + "K"]     : "tex",  // KaTeX
 
         "Shift-Alt-C"      : function() {
             var cm        = this.cm;
@@ -3264,16 +3255,16 @@
             }
         },
 
-        "Shift-Ctrl-Alt-C" : "code-block",
-        "Shift-Ctrl-H"     : "html-entities",
-        "Shift-Alt-H"      : "help",
-        "Shift-Ctrl-E"     : "emoji",
-        "Shift-Ctrl-U"     : "uppercase",
-        "Shift-Alt-U"      : "ucwords",
-        "Shift-Ctrl-Alt-U" : "ucfirst",
-        "Shift-Alt-L"      : "lowercase",
+        ["Shift-" + key + "-Alt-C"]      : "code-block",
+        ["Shift-" + key + "-H"]          : "html-entities",
+        "Shift-Alt-H"                    : "help",
+        ["Shift-" + key + "-E"]          : "emoji",
+        ["Shift-" + key + "-U"]          : "uppercase",
+        "Shift-Alt-U"                    : "ucwords",
+        ["Shift-" + key + "-Alt-U"]      : "ucfirst",
+        "Shift-Alt-L"                    : "lowercase",
 
-        "Shift-Ctrl-I"     : function() {
+        ["Shift-" + key + "-I"]          : function() {
             var cm        = this.cm;
             var cursor    = cm.getCursor();
             var selection = cm.getSelection();
@@ -3287,15 +3278,15 @@
             }
         },
 
-        "Shift-Ctrl-Alt-I" : "image",
-        "Shift-Ctrl-L"     : "link",
-        "Shift-Ctrl-O"     : "list-ol",
-        "Shift-Ctrl-P"     : "preformatted-text",
-        "Shift-Ctrl-T"     : "table",
-        "Shift-Alt-P"      : "pagebreak",
-        "F9"               : "watch",
-        "F10"              : "preview",
-        "F11"              : "fullscreen",
+        ["Shift-" + key + "-Alt-I"]     : "image",
+        ["Shift-" + key + "-L"]         : "link",
+        ["Shift-" + key + "-O"]         : "list-ol",
+        ["Shift-" + key + "-P"]         : "preformatted-text",
+        ["Shift-" + key + "-T"]         : "table",
+        "Shift-Alt-P"                   : "pagebreak",
+        "F9"                            : "watch",
+        "F10"                           : "preview",
+        "F11"                           : "fullscreen",
     };
 
     /**
@@ -3355,7 +3346,7 @@
         email         : /(\w+)@(\w+)\.(\w+)\.?(\w+)?/g,
         emailLink     : /(mailto:)?([\w\.\_]+)@(\w+)\.(\w+)\.?(\w+)?/g,
         emoji         : /:([\w\+-]+):/g,
-        emojiDatetime : /(\d{2}:\d{2}:\d{2})/g,
+        emojiDatetime : /(\d{1,2}:\d{1,2}:\d{1,2})/g,
         twemoji       : /:(tw-([\w]+)-?(\w+)?):/g,
         fontAwesome   : /:(fa-([\w]+)(-(\w+)){0,}):/g,
         editormdLogo  : /:(editormd-logo-?(\w+)?):/g,
@@ -3956,7 +3947,7 @@
             smartypants : true
         };
 
-		markdownDoc = new String(markdownDoc);
+        markdownDoc = new String(markdownDoc);
 
         var markdownParsed = marked(markdownDoc, markedOptions);
 
@@ -4178,8 +4169,8 @@
     // 使用国外的CDN，加载速度有时会很慢，或者自定义URL
     // You can custom KaTeX load url.
     editormd.katexURL  = {
-        css : "//cdn.bootcss.com/KaTeX/0.3.0/katex.min",
-        js  : "//cdn.bootcss.com/KaTeX/0.3.0/katex.min"
+        css : "//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min",
+        js  : "//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min"
     };
 
     editormd.kaTeXLoaded = false;
