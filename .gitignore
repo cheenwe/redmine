@@ -33,5 +33,5 @@
 /.bundle
 /.env
 Gemfile.lock
-/config/database.yml
+config/database.yml
 .ruby-version
