@@ -1156,4 +1156,5 @@ zh:
   label_member_management_selected_roles_only: Only these roles
   label_password_required: Confirm your password to continue
   label_total_spent_time: 总体耗时
+  all_time_entries: 耗时报表
   field_total_estimated_hours: Total estimated time

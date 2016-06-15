@@ -57,6 +57,10 @@ module ProjectsHelper
     if User.current.allowed_to?(:view_time_entries, nil, :global => true)
       links << link_to(l(:label_overall_spent_time), time_entries_path)
     end
+    if User.current.allowed_to?(:add_project, nil, :global => true)
+      links << link_to(l(:all_time_entries), all_time_entries_path, :class => 'icon icon-show')
+    end
+
     links << link_to(l(:label_overall_activity), activity_path)
     links.join(" | ").html_safe
   end

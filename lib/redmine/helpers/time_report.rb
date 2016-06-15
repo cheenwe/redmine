@@ -55,7 +55,7 @@ module Redmine
             end
             @hours << h
           end
-          
+
           @hours.each do |row|
             case @columns
             when 'year'
@@ -68,13 +68,13 @@ module Redmine
               row['day'] = "#{row['spent_on']}"
             end
           end
-          
+
           min = @hours.collect {|row| row['spent_on']}.min
           @from = min ? min.to_date : Date.today
 
           max = @hours.collect {|row| row['spent_on']}.max
           @to = max ? max.to_date : Date.today
-          
+
           @total_hours = @hours.inject(0) {|s,k| s = s + k['hours'].to_f}
 
           @periods = []

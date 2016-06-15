@@ -152,7 +152,7 @@ Rails.application.routes.draw do
         end
       end
     end
-  
+
     match 'wiki/index', :controller => 'wiki', :action => 'index', :via => :get
     resources :wiki, :except => [:index, :new, :create], :as => 'wiki_page' do
       member do
@@ -188,6 +188,7 @@ Rails.application.routes.draw do
     resources :time_entries, :controller => 'timelog', :except => [:show, :edit, :update, :destroy] do
       collection do
         get 'report'
+
       end
     end
     shallow do
@@ -217,6 +218,8 @@ Rails.application.routes.draw do
   resources :time_entries, :controller => 'timelog', :except => :destroy do
     collection do
       get 'report'
+
+      get 'all'
       get 'bulk_edit'
       post 'bulk_update'
     end

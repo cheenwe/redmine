@@ -86,6 +86,36 @@ class TimelogController < ApplicationController
     end
   end
 
+  def all
+    @users = User.where(status:1)
+    @all_records = []
+    if params[:q]
+
+
+      @users.each do |user|
+        @all_records << {
+          user_id: user.id,
+          user: user.name,
+          plan_hours: Issue.where(assigned_to: user.id).where(created_on:params[:q]..Time.now).sum(:estimated_hours),
+          hours: TimeEntry.where(user_id: user.id).where(created_on:params[:q]..Time.now).sum(:hours)
+
+          # : TimeEntry.where("user_id: #{user.id }AND created_at >= #{params[:q]}").sum(:hours)
+        }
+      end
+
+    else
+      @users.each do |user|
+        @all_records << {
+          user_id: user.id,
+          user: user.name,
+          plan_hours: Issue.where(assigned_to: user.id).sum(:estimated_hours),
+          hours: TimeEntry.where(user_id: user.id).sum(:hours)
+        }
+      end
+    end
+
+  end
+
   def show
     respond_to do |format|
       # TODO: Implement html response
