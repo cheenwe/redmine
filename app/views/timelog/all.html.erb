@@ -3,19 +3,56 @@
 <%= form_tag(params.slice(:project_id, :issue_id), :method => :get, :id => 'query_form') do %>
 
   <div id="query_form_with_buttons" class="hide-when-print">
-  <%= date_field_tag(:q) %>
-    <%= submit_tag("Search") %>
+  <%= date_field_tag(:time_more_than) %>
+  <%= date_field_tag(:time_less_than) %>
+  <%= submit_tag("Search") %>
+  <%  if  params[:time_more_than] ||  params[:time_less_than]%>
+
+  <a href="/time_entries/all" class="btn btn-default" >重置</a>
+  开始于: <%= params[:time_more_than] %>
+  结束于: <%= params[:time_less_than] %>
+
+  <% end%>
+
   </div>
 <% end %>
+
 
 <div class="autoscroll">
 <table class="list time-entries">
 <thead>
   <tr>
     <th >员工名</th>
-    <th >计划工时</th>
-    <th>实际工时</th>
-    <th>差额</th>
+    <th  colspan="2">计划工时</th>
+    <th>实际工时/H</th>
+    <th>效率差值</th>
+    <th colspan="3">进行中</th>
+    <th colspan="3">已解决</th>
+    <th colspan="3">已关闭</th>
+    <th colspan="3">已放弃</th>
+
+
+
+  </tr>
+      <td > </td>
+      <td >任务个数</td>
+      <td >计划时间 </td>
+      <td > </td>
+      <td > </td>
+      <td >占比</td>
+      <td >个数 </td>
+      <td >工时占比 </td>
+      <td >占比</td>
+      <td >个数 </td>
+      <td >工时占比 </td>
+      <td >占比</td>
+      <td >个数 </td>
+      <td >工时占比 </td>
+      <td >占比</td>
+      <td >个数 </td>
+      <td >工时占比 </td>
+
+
 
   </tr>
 </thead>
@@ -23,10 +60,25 @@
   <% @all_records.each do |entry| -%>
   <tr class="time-entry  hascontextmenu">
       <td ><%= entry[:user] %></td>
-      <td ><%= entry[:plan_hours] %></td>
-      <!-- time_entries/&user_id=10 -->
+      <td ><%= entry[:issues_size]%></td>
+      <td ><%= entry[:plan_hours] %> </td>
       <td ><a href="/time_entries/?user_id=<%= entry[:user_id]  %>" ><%= entry[:hours] %></a></td>
-      <td ><%= entry[:hours] - entry[:plan_hours] %></td>
+      <td ><%= entry[:plan_hours] - entry[:hours]  %></td>
+
+      <td ><%= entry[:issues_ongoing_percent] %>% </td>
+      <td > <%= entry[:issues_ongoing_size] %>  </td>
+      <td ><%= (entry[:issues_ongoing_plan_hours] / entry[:plan_hours] * 100).round(1) %>%</td>
+      <td ><%= entry[:issues_solve_percent] %>% </td>
+      <td > <%= entry[:issues_solve_size] %> </td>
+      <td ><%= (entry[:issues_solve_plan_hours] / entry[:plan_hours] * 100).round(1) %>%</td>
+      <td ><%= entry[:issues_close_percent] %>% </td>
+      <td > <%= entry[:issues_close_size] %> </td>
+      <td ><%= (entry[:issues_close_plan_hours] / entry[:plan_hours] * 100).round(1) %>%</td>
+
+      <td ><%= entry[:issues_abort_percent] %>% </td>
+      <td > <%= entry[:issues_abort_size] %> </td>
+      <td ><%= (entry[:issues_abort_plan_hours] / entry[:plan_hours] * 100).round(1) %>%</td>
+      <!-- time_entries/&user_id=10 -->
 </tr>
   <% end -%>
 </tbody>

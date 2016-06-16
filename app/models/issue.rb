@@ -1647,4 +1647,6 @@ class Issue < ActiveRecord::Base
       self.done_ratio ||= 0
     end
   end
+
+
 end

@@ -87,29 +87,108 @@ class TimelogController < ApplicationController
   end
 
   def all
+    solve_status_id = IssueStatus.get_status_id "已解决"
+    abort_status_id = IssueStatus.get_status_id "已放弃"
+    close_status_id = IssueStatus.get_status_id "已关闭"
+    ongoing_status_id = IssueStatus.get_status_id "进行中"
+
+
     @users = User.where(status:1)
     @all_records = []
-    if params[:q]
+    #大于 , 小于
+    if params[:time_more_than].present?  || params[:time_less_than].present?
+      if params[:time_more_than].present? && params[:time_less_than].present?
+        start_at = Date.parse(params[:time_more_than]).beginning_of_day
+        end_at = Date.parse(params[:time_less_than]).end_of_day
+      elsif params[:time_more_than].present?
+        start_at = Date.parse(params[:time_more_than]).beginning_of_day
+        end_at = Time.now
+      elsif  params[:time_less_than].present?
+        start_at = Issue.first.created_on
+        end_at = Date.parse(params[:time_less_than]).end_of_day
+      else
+      end
+
 
 
       @users.each do |user|
+
+      issues =  Issue.where(assigned_to: user.id).where(created_on:start_at..end_at)
+
+
+
+      issues_solve = issues.where(status_id:solve_status_id)
+      issues_abort = issues.where(status_id:abort_status_id)
+      issues_close = issues.where(status_id:close_status_id)
+      issues_ongoing = issues.where(status_id:ongoing_status_id)
+
+      issues_plan_hours = issues.sum(:estimated_hours)
+      issues_solve_plan_hours = issues_solve.sum(:estimated_hours)
+      issues_abort_plan_hours = issues_abort.sum(:estimated_hours)
+      issues_close_plan_hours = issues_close.sum(:estimated_hours)
+      issues_ongoing_plan_hours = issues_ongoing.sum(:estimated_hours)
+
+      time_entries =TimeEntry.where(user_id: user.id).where(created_on:start_at..end_at)
+
         @all_records << {
           user_id: user.id,
           user: user.name,
-          plan_hours: Issue.where(assigned_to: user.id).where(created_on:params[:q]..Time.now).sum(:estimated_hours),
-          hours: TimeEntry.where(user_id: user.id).where(created_on:params[:q]..Time.now).sum(:hours)
-
+          plan_hours:  issues_plan_hours ,
+          issues_size: issues.size,
+          issues_solve_size: issues_solve.size,
+          issues_abort_size: issues_abort.size,
+          issues_close_size: issues_close.size,
+          issues_ongoing_size: issues_ongoing.size,
+          issues_solve_plan_hours: issues_solve_plan_hours,
+          issues_abort_plan_hours: issues_abort_plan_hours,
+          issues_close_plan_hours: issues_close_plan_hours,
+          issues_ongoing_plan_hours: issues_ongoing_plan_hours,
+          issues_solve_percent: (issues_solve.size*100/issues.size rescue 0.0),
+          issues_close_percent: (issues_close.size*100/issues.size rescue 0.0),
+          hours: time_entries.sum(:hours)
           # : TimeEntry.where("user_id: #{user.id }AND created_at >= #{params[:q]}").sum(:hours)
         }
       end
 
     else
+
+
       @users.each do |user|
+      issues =  Issue.where(assigned_to: user.id)
+      issues_ongoing = issues.where(status_id:ongoing_status_id)
+
+
+      issues_solve = issues.where(status_id:solve_status_id)
+      issues_abort = issues.where(status_id:abort_status_id)
+      issues_close = issues.where(status_id:close_status_id)
+
+      issues_ongoing_plan_hours = issues_ongoing.sum(:estimated_hours)
+      issues_plan_hours = issues.sum(:estimated_hours)
+      issues_solve_plan_hours = issues_solve.sum(:estimated_hours)
+      issues_abort_plan_hours = issues_abort.sum(:estimated_hours)
+      issues_close_plan_hours = issues_close.sum(:estimated_hours)
+
+      time_entries =TimeEntry.where(user_id: user.id)
+
         @all_records << {
           user_id: user.id,
           user: user.name,
-          plan_hours: Issue.where(assigned_to: user.id).sum(:estimated_hours),
-          hours: TimeEntry.where(user_id: user.id).sum(:hours)
+          plan_hours:  issues_plan_hours ,
+          issues_size: issues.size,
+          issues_solve_size: issues_solve.size,
+          issues_abort_size: issues_abort.size,
+          issues_close_size: issues_close.size,
+          issues_ongoing_size: issues_ongoing.size,
+
+          issues_solve_plan_hours: issues_solve_plan_hours,
+          issues_abort_plan_hours: issues_abort_plan_hours,
+          issues_ongoing_plan_hours: issues_ongoing_plan_hours,
+          issues_close_plan_hours: issues_close_plan_hours,
+          issues_ongoing_percent: (issues_ongoing.size*100/issues.size rescue 0.0),
+          issues_solve_percent: (issues_solve.size*100/issues.size rescue 0.0),
+          issues_close_percent: (issues_close.size*100/issues.size rescue 0.0),
+          hours: time_entries.sum(:hours)
+          # : TimeEntry.where("user_id: #{user.id }AND created_at >= #{params[:q]}").sum(:hours)
         }
       end
     end

@@ -120,4 +120,8 @@ class IssueStatus < ActiveRecord::Base
   def delete_workflow_rules
     WorkflowRule.delete_all(["old_status_id = :id OR new_status_id = :id", {:id => id}])
   end
+
+  def self.get_status_id name
+      IssueStatus.find_by_name(name).id rescue 1
+  end
 end
