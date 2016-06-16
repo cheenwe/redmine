@@ -1,0 +1,58 @@
+<%#= @all_records %>
+<h1>多余人力资源视图</h1>
+<%= form_tag(params.slice(:project_id, :issue_id), :method => :get, :id => 'query_form') do %>
+
+  <div id="query_form_with_buttons" class="hide-when-print">
+  <%= date_field_tag(:time_more_than) %>
+  <%= check_box_tag(:show_all)%> 显示全部
+  <%#= date_field_tag(:time_less_than) %>
+  <%= submit_tag("Search") %>
+  <%  if  params[:time_more_than] ||  params[:time_less_than]%>
+
+  <a href="/time_entries/free" class="btn btn-default" >重置</a>
+  日期: <%= params[:time_more_than] %>
+
+
+  <% end%>
+
+  </div>
+<% end %>
+
+
+<div class="autoscroll">
+<table class="list time-entries">
+<thead>
+  <tr>
+    <th >员工名</th>
+    <th >最后安排时间</th>
+    <th>工时/H</th>
+
+  </tr>
+</thead>
+<tbody>
+  <% @all_records.each do |entry| -%>
+
+  <%  if  params[:show_all] == "1"%>
+
+
+  <tr class="time-entry  hascontextmenu">
+      <td ><%= entry[:user] %></td>
+      <td ><%= entry[:issue][:due_date] rescue '' %></td>
+      <td ><%= entry[:issue][:estimated_hours] rescue '' %></td>
+</tr>
+  <% else %>
+
+    <% unless entry[:issue].present? %>
+      <tr class="time-entry  hascontextmenu">
+          <td ><%= entry[:user] %></td>
+          <td ><%= entry[:issue][:due_date] rescue '' %></td>
+          <td ><%= entry[:issue][:estimated_hours] rescue '' %></td>
+    </tr>
+    <% end %>
+  <% end %>
+
+
+  <% end -%>
+</tbody>
+</table>
+</div>

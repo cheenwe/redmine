@@ -220,6 +220,7 @@ Rails.application.routes.draw do
       get 'report'
 
       get 'all'
+      get 'free'
       get 'bulk_edit'
       post 'bulk_update'
     end

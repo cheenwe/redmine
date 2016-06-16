@@ -351,6 +351,10 @@ class IssuesController < ApplicationController
     end
   end
 
+  def all
+
+  end
+
   private
 
   def retrieve_previous_and_next_issue_ids
