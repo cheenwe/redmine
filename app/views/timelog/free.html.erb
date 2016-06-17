@@ -1,3 +1,5 @@
+
+
 <%#= @all_records %>
 <h1>多余人力资源视图</h1>
 <%= form_tag(params.slice(:project_id, :issue_id), :method => :get, :id => 'query_form') do %>
@@ -18,9 +20,12 @@
   </div>
 <% end %>
 
+    <div>
+    </div>
+
 
 <div class="autoscroll">
-<table class="list time-entries">
+<table id="my_export" class="list time-entries">
 <thead>
   <tr>
     <th >员工名</th>
@@ -56,3 +61,24 @@
 </tbody>
 </table>
 </div>
+<p class="other-formats">导出
+  <span><a class="csv" rel="nofollow"  id="btnExport" href="#" download="">Excel</a></span>
+</p>
+
+<script type="text/javascript" src="/javascripts/jquery.battatech.excelexport.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnExport").on('click', function () {
+            var uri = $("#my_export").battatech_excelexport({
+              containerid: "my_export",
+              datatype: 'table',
+              encoding: "UTF-8",
+              returnUri: true
+            });
+            $(this).attr('download', '多余人力资源.xls').attr('href', uri).attr('target', '_blank');
+        });
+    });
+</script>
+
+
