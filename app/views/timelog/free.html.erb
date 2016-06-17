@@ -41,7 +41,8 @@
 
 
   <tr class="time-entry  hascontextmenu">
-      <td ><%= entry[:user] %></td>
+
+      <td ><a href="/issues/?user_id=<%= entry[:user_id]  %>&per_page=100" ><%= entry[:user] %></a></td>
       <td ><%= entry[:issue][:due_date] rescue '' %></td>
       <td ><%= entry[:issue][:estimated_hours] rescue '' %></td>
 </tr>
@@ -49,7 +50,7 @@
 
     <% unless entry[:issue].present? %>
       <tr class="time-entry  hascontextmenu">
-          <td ><%= entry[:user] %></td>
+          <td ><a href="/issues/?user_id=<%= entry[:user_id]  %>&per_page=100" ><%= entry[:user] %></a></td>
           <td ><%= entry[:issue][:due_date] rescue '' %></td>
           <td ><%= entry[:issue][:estimated_hours] rescue '' %></td>
     </tr>
