@@ -19,10 +19,20 @@
   <% end %>
 </ul>
 <% end %>
-
+<!--
 <div class="wiki">
 <%= textilizable @document, :description, :attachments => @document.attachments %>
 </div>
+ -->
+
+
+ <div class="markdown-body">
+   <div id="wiki-content-display">
+     <textarea id="append-test" style="display:none;">
+     <%= @document.description%>
+   </textarea>
+   </div>
+ </div>
 
 <h3><%= l(:label_attachment_plural) %></h3>
 <%= link_to_attachments @document %>
