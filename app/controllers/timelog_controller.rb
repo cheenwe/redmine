@@ -155,7 +155,6 @@ class TimelogController < ApplicationController
 			issues =  Issue.where(assigned_to: user.id)
 			issues_ongoing = issues.where(status_id:ongoing_status_id)
 
-
 			issues_solve = issues.where(status_id:solve_status_id)
 			issues_abort = issues.where(status_id:abort_status_id)
 			issues_close = issues.where(status_id:close_status_id)
@@ -205,6 +204,9 @@ class TimelogController < ApplicationController
 
 	def free
 
+		abort_status_id = IssueStatus.get_status_id "已放弃"
+		close_status_id = IssueStatus.get_status_id "已关闭"
+
 		@users = User.where(status:1)
 		@all_records = []
 		#大于 , 小于
@@ -215,10 +217,8 @@ class TimelogController < ApplicationController
 			start_at = Date.today
 		end
 
-
-
 			@users.each do |user|
-				issues =  Issue.where(assigned_to: user.id)
+				issues =  Issue.where(assigned_to: user.id).where.not(status_id: [abort_status_id,close_status_id])
 				issues = issues.where( 'due_date >= ?', start_at)
 
 				@all_records << {
