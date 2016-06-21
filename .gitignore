@@ -29,9 +29,8 @@
 /tmp/thumbnails/*
 /vendor/cache
 *.rbc
-
 /.bundle
 /.env
-Gemfile.lock
-config/database.yml
+/Gemfile.lock
+/config/database.yml
 .ruby-version
