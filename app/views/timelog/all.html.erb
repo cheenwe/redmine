@@ -59,7 +59,7 @@
       <td ><%= entry[:user] %></td>
       <td ><%= entry[:issues_size]%></td>
      <!--  <td ><%#= entry[:plan_hours] %> </td> -->
-      <td ><a href="/issues/?user_id=<%= entry[:user_id]  %>&per_page=100" ><%= entry[:plan_hours] %></a></td>
+      <td ><a href="/issues/?assigned_to_id=<%= entry[:user_id]  %>&per_page=100" ><%= entry[:plan_hours] %></a></td>
 
       <td ><a href="/time_entries/?user_id=<%= entry[:user_id]%>&per_page=100" ><%= entry[:hours] %></a></td>
       <td ><%= entry[:hours] - entry[:plan_hours]  %></td>
