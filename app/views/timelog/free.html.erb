@@ -42,7 +42,7 @@
 
   <tr class="time-entry  hascontextmenu">
 
-      <td ><a href="/issues/?assigned_to_id=<%= entry[:user_id]  %>&per_page=100" ><%= entry[:user] %></a></td>
+      <td ><a href="/issues/?utf8=✓&set_filter=1&assigned_to_id=<%= entry[:user_id]  %>&per_page=100" ><%= entry[:user] %></a></td>
       <td ><%= entry[:issue][:due_date] rescue '' %></td>
       <td ><%= entry[:issue][:estimated_hours] rescue '' %></td>
 </tr>
