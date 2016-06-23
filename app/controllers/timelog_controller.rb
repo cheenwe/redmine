@@ -217,22 +217,19 @@ class TimelogController < ApplicationController
 			start_at = Date.today
 		end
 
-			@users.each do |user|
-				issues =  Issue.where(assigned_to: user.id).where.not(status_id: [abort_status_id,close_status_id])
-				issues = issues.where( 'due_date >= ?', start_at)
+		@users.each do |user|
+			issues =  Issue.where(assigned_to: user.id).where.not(status_id: [abort_status_id,close_status_id])
+			# issues = issues.where( 'due_date >= ?', start_at)
 
-				@all_records << {
-					user_id: user.id,
-					user: user.name,
-					issue:( issues.last rescue "")
-					# : TimeEntry.where("user_id: #{user.id }AND created_at >= #{params[:q]}").sum(:hours)
-				}
-
-
-			end
+			@all_records << {
+				user_id: user.id,
+				user: user.name,
+				issue:( issues.last rescue "")
+				# : TimeEntry.where("user_id: #{user.id }AND created_at >= #{params[:q]}").sum(:hours)
+			}
 
 
-
+		end
 	end
 
 	def show
