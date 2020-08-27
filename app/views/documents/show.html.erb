@@ -21,7 +21,10 @@
 <% end %>
 
 <div class="wiki">
-<%= textilizable @document, :description, :attachments => @document.attachments %>
+<%#= textilizable @document, :description, :attachments => @document.attachments %>
+<div id="wiki-content-display">
+  <%= textilizable @text, :attachments => @attachments, :object => @previewed %>
+</div>
 </div>
 
 <h3><%= l(:label_attachment_plural) %></h3>

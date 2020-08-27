@@ -1085,6 +1085,24 @@ function inlineAutoComplete(element) {
 }
 
 
+
+$(function() {
+
+              var testEditor = editormd.markdownToHTML("wiki-content-display", {
+
+                  emoji           : true,
+                  taskList        : true,
+                  tex             : true,  // 默认不解析
+                  flowChart       : true,  // 默认不解析
+                  sequenceDiagram : true,  // 默认不解析
+                  tocm            : true,
+                  path : '.javascript/editormd/lib/',
+                  codeFold : true
+
+              });
+
+});
+
 $(document).ready(setupAjaxIndicator);
 $(document).ready(hideOnLoad);
 $(document).ready(addFormObserversForDoubleSubmit);
